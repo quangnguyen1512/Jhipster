@@ -1,0 +1,29 @@
+{
+  "gssgnApp": {
+    "control": {
+      "home": {
+        "title": "Controls",
+        "createLabel": "Thêm mới phương thức kiểm soát",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật phương thức kiểm soát",
+        "notFound": "No controls found"
+      },
+      "created": "Một Control mới được tạo với định danh {{ param }}",
+      "updated": "Một Control cập nhật với định danh {{ param }}",
+      "deleted": "Một Control đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Control {{ id }}?"
+      },
+      "detail": {
+        "title": "Control"
+      },
+      "controlCode": "Mã phương thức",
+      "controlName": "Tên phương thức",
+      "regionCode": "Mô tả",
+      "status": "Trạng thái",
+      "createdDate": "Created Date",
+      "createdBy": "Created By",
+      "updatedDate": "Updated Date",
+      "updatedBy": "Updated By"
+    }
+  }
+}
