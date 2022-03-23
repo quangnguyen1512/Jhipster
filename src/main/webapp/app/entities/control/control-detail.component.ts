@@ -12,6 +12,7 @@ export class ControlDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    console.log('detail');
     this.activatedRoute.data.subscribe(({ control }) => (this.control = control));
   }
 

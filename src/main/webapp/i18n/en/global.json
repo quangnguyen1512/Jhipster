@@ -8,6 +8,7 @@
       "entities": {
         "main": "Entities",
         "area": "Area",
+        "control": "Control",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

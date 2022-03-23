@@ -33,6 +33,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
+    console.log('X1');
     const pageToLoad: number = page || this.page || 1;
 
     this.controlService
@@ -48,11 +49,13 @@ export class ControlComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('X2');
     this.handleNavigation();
-    this.registerChangeInAreas();
+    this.registerChangeInControls();
   }
 
   protected handleNavigation(): void {
+    console.log('X3');
     combineLatest(this.activatedRoute.data, this.activatedRoute.queryParamMap, (data: Data, params: ParamMap) => {
       const page = params.get('page');
       const pageNumber = page !== null ? +page : 1;
@@ -68,26 +71,31 @@ export class ControlComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('X4');
     if (this.eventSubscriber) {
       this.eventManager.destroy(this.eventSubscriber);
     }
   }
 
   trackId(index: number, item: IControl): number {
+    console.log('X5');
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 
-  registerChangeInAreas(): void {
-    this.eventSubscriber = this.eventManager.subscribe('areaListModification', () => this.loadPage());
+  registerChangeInControls(): void {
+    console.log('X6');
+    this.eventSubscriber = this.eventManager.subscribe('controlListModification', () => this.loadPage());
   }
 
   delete(control: IControl): void {
+    console.log('X7');
     const modalRef = this.modalService.open(ControlDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.control = control;
   }
 
   sort(): string[] {
+    console.log('X8');
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
@@ -96,6 +104,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   }
 
   protected onSuccess(data: IControl[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+    console.log('X9');
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
@@ -112,6 +121,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   }
 
   protected onError(): void {
+    console.log('X10');
     this.ngbPaginationPage = this.page ?? 1;
   }
 }
