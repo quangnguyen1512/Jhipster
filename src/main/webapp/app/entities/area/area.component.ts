@@ -6,7 +6,6 @@ import { JhiEventManager } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IArea } from 'app/shared/model/area.model';
-
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { AreaService } from './area.service';
 import { AreaDeleteDialogComponent } from './area-delete-dialog.component';

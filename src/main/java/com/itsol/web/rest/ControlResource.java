@@ -102,7 +102,7 @@ public class ControlResource {
      * @param id the id of the areaDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the areaDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/Controls/{id}")
+    @GetMapping("/controls/{id}")
     public ResponseEntity<ControlDTO> getControl(@PathVariable Long id) {
         log.debug("REST request to get Control : {}", id);
         Optional<ControlDTO> controlDTO = controlService.findOne(id);
