@@ -25,7 +25,6 @@ export class ControlUpdateComponent implements OnInit {
   constructor(protected controlService: ControlService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    console.log('update');
     this.activatedRoute.data.subscribe(({ control }) => {
       if (!control.id) {
         const today = moment().startOf('day');
@@ -36,7 +35,6 @@ export class ControlUpdateComponent implements OnInit {
   }
 
   updateForm(control: IControl): void {
-    console.log('update form');
     this.editForm.patchValue({
       id: control.id,
       controlCode: control.controlCode,
@@ -54,7 +52,6 @@ export class ControlUpdateComponent implements OnInit {
     this.isSaving = true;
     const control = this.createFromForm();
     if (control.id !== undefined) {
-      console.log(control);
       this.subscribeToSaveResponse(this.controlService.update(control));
     } else {
       this.subscribeToSaveResponse(this.controlService.create(control));

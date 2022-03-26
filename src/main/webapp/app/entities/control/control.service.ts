@@ -18,7 +18,6 @@ export class ControlService {
   constructor(protected http: HttpClient) {}
 
   create(control: IControl): Observable<EntityResponseType> {
-    console.log('create');
     const copy = this.convertDateFromClient(control);
     return this.http
       .post<IControl>(this.resourceUrl, copy, { observe: 'response' })
@@ -26,7 +25,6 @@ export class ControlService {
   }
 
   update(control: IControl): Observable<EntityResponseType> {
-    console.log('update1');
     const copy = this.convertDateFromClient(control);
     return this.http
       .put<IControl>(this.resourceUrl, copy, { observe: 'response' })
