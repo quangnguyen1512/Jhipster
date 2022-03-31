@@ -122,4 +122,13 @@ public class AreaResource {
         areaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/areas/find-by-name/{name}")
+    public ResponseEntity<List<AreaDTO>> findByName(@PathVariable String name) {
+        log.debug("REST request to get a page of Areas");
+        List<AreaDTO> areas = areaService.findByName(name);
+        return ResponseEntity.ok().body(areas);
+    }
+
+
 }

@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Area}.
@@ -56,6 +58,14 @@ public class AreaService {
         log.debug("Request to get all Areas");
         return areaRepository.findAll(pageable)
             .map(areaMapper::toDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AreaDTO> findByName(String areaName) {
+        log.debug("Request to get all Areas");
+        return areaRepository.cFindByName(areaName).stream()
+            .map(areaMapper::toDto)
+            .collect(Collectors.toList());
     }
 
 

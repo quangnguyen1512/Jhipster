@@ -31,6 +31,13 @@ export class AreaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  search(area: IArea): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(area);
+    return this.http
+      .put<IArea>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   find(id: number): Observable<EntityResponseType> {
     return this.http
       .get<IArea>(`${this.resourceUrl}/${id}`, { observe: 'response' })

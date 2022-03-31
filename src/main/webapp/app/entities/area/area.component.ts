@@ -19,6 +19,7 @@ export class AreaComponent implements OnInit, OnDestroy {
   eventSubscriber?: Subscription;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
+  filter = '';
   page!: number;
   predicate!: string;
   ascending!: boolean;

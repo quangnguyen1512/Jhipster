@@ -1,9 +1,11 @@
 package com.itsol.web.rest;
 
+import com.itsol.domain.Control;
 import com.itsol.service.ControlService;
 import com.itsol.service.dto.ControlDTO;
 import com.itsol.web.rest.errors.BadRequestAlertException;
 
+import com.zaxxer.hikari.pool.HikariProxyConnection;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -19,11 +21,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.sql.*;
 
 /**
- * REST controller for managing {@link com.itsol.domain.Control}.
+ * REST controller for managing {@link Control}.
  */
 @RestController
 @RequestMapping("/api")
@@ -89,7 +93,7 @@ public class ControlResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of areas in body.
      */
     @GetMapping("/controls")
-    public ResponseEntity<List<ControlDTO>> getAllAreas(Pageable pageable) {
+    public ResponseEntity<List<ControlDTO>> getAllControls(Pageable pageable) {
         log.debug("REST request to get a page of Controls");
         Page<ControlDTO> page = controlService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -116,9 +120,10 @@ public class ControlResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/controls/{id}")
-    public ResponseEntity<Void> deleteArea(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteControl(@PathVariable Long id) {
         log.debug("REST request to delete Control : {}", id);
         controlService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
 }
