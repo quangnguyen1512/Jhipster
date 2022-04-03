@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -123,12 +124,16 @@ public class AreaResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    @GetMapping("/areas/find-by-name/{name}")
-    public ResponseEntity<List<AreaDTO>> findByName(@PathVariable String name) {
+    @GetMapping("/areas/search")
+    public ResponseEntity<List<AreaDTO>> findBySearch(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                      @RequestParam(defaultValue = "20") Integer pageSize,
+                                                      @RequestParam(defaultValue = "id") String sortBy,
+                                                      @RequestParam(defaultValue = "ASC") String sortType,
+                                                      @RequestParam(defaultValue = "") String keySearch) {
         log.debug("REST request to get a page of Areas");
-        List<AreaDTO> areas = areaService.findByName(name);
-        return ResponseEntity.ok().body(areas);
+        List<AreaDTO> list = areaService.findBySearch(pageNo, pageSize, sortBy, sortType, keySearch);
+        return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
+        }
     }
 
 
-}

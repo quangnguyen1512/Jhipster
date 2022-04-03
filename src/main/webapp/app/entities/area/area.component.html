@@ -1,17 +1,9 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="gssgnApp.area.home.title">Areas</span>
-<!--        <span class="btn btn-light">-->
-<!--            <input type="text" [(ngModel)]="filter" class="form-control" placeholder=" Search">-->
-<!--        </span>-->
-        <span>
-            <form class="form-inline md-form form-sm active-purple-2">
-                <input class="form-control " type="text" placeholder="Search">
-                <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
-            </form>
+        <span class="btn btn-light">
+            <input type="text" [(ngModel)]="filter" class="form-control" placeholder=" Search">
         </span>
-
-
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-area" [routerLink]="['/area/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="gssgnApp.area.home.createLabel">

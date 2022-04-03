@@ -4,11 +4,14 @@ import com.itsol.domain.Area;
 import com.itsol.repository.AreaRepository;
 import com.itsol.service.dto.AreaDTO;
 import com.itsol.service.mapper.AreaMapper;
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,11 +64,13 @@ public class AreaService {
     }
 
     @Transactional(readOnly = true)
-    public List<AreaDTO> findByName(String areaName) {
+    public List<AreaDTO> findBySearch(Integer pageNo, Integer pageSize, String sortField, String sortType, String keySearch) {
         log.debug("Request to get all Areas");
-        return areaRepository.cFindByName(areaName).stream()
-            .map(areaMapper::toDto)
-            .collect(Collectors.toList());
+        Sort sort = Sort.by(sortField);
+        sort = "ASC".equals(sortType) ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        Page<Area> page = areaRepository.cFindBySearch(keySearch, pageable);
+        return page.getContent().stream().map(areaMapper::toDto).collect(Collectors.toList());
     }
 
 
