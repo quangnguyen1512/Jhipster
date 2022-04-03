@@ -19,8 +19,5 @@ import java.util.List;
 public interface AreaRepository extends JpaRepository<Area, Long> {
 
     @Query(value="select * from area u where u.area_name like %:keySearch% or u.area_code like %:keySearch% or u.region_code like %:keySearch%", nativeQuery=true)
-    List<Area> cFindBySearch(@Param("keySearch") String keySearch);
-
-    @Query(value="select * from area u where u.area_name like %:keySearch% or u.area_code like %:keySearch% or u.region_code like %:keySearch%", nativeQuery=true)
     Page<Area> cFindBySearch(@Param("keySearch") String keySearch, Pageable pageable);
 }
