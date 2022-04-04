@@ -20,7 +20,8 @@ export class AreaComponent implements OnInit, OnDestroy {
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
   filter = '';
-  page!: number;
+  pageNo!: number;
+  keySearch = '';
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
@@ -33,14 +34,15 @@ export class AreaComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal
   ) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
-    const pageToLoad: number = page || this.page || 1;
+  loadPage(pageNo?: number, dontNavigate?: boolean): void {
+    const pageToLoad: number = pageNo || this.pageNo || 1;
 
     this.areaService
       .query({
-        page: pageToLoad - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
+        pageNo: pageToLoad - 1,
+        pageSize: this.itemsPerPage,
+        sortBy: this.sort(),
+        keySearch: this.keySearch,
       })
       .subscribe(
         (res: HttpResponse<IArea[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
@@ -60,7 +62,7 @@ export class AreaComponent implements OnInit, OnDestroy {
       const sort = (params.get('sort') ?? data['defaultSort']).split(',');
       const predicate = sort[0];
       const ascending = sort[1] === 'asc';
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
+      if (pageNumber !== this.pageNo || predicate !== this.predicate || ascending !== this.ascending) {
         this.predicate = predicate;
         this.ascending = ascending;
         this.loadPage(pageNumber, true);
@@ -96,23 +98,23 @@ export class AreaComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected onSuccess(data: IArea[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+  protected onSuccess(data: IArea[] | null, headers: HttpHeaders, pageNo: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
-    this.page = page;
+    this.pageNo = pageNo;
     if (navigate) {
       this.router.navigate(['/area'], {
         queryParams: {
-          page: this.page,
+          pageNo: this.pageNo,
           size: this.itemsPerPage,
           sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc'),
         },
       });
     }
     this.areas = data || [];
-    this.ngbPaginationPage = this.page;
+    this.ngbPaginationPage = this.pageNo;
   }
 
   protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
+    this.ngbPaginationPage = this.pageNo ?? 1;
   }
 }
