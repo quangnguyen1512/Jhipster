@@ -1,11 +1,8 @@
 package com.itsol.repository;
 
 import com.itsol.domain.Area;
-
-import com.itsol.service.dto.AreaDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +15,13 @@ import java.util.List;
 @Repository
 public interface AreaRepository extends JpaRepository<Area, Long> {
 
-    @Query(value="select * from area u where u.area_name like %:keySearch% or u.area_code like %:keySearch% or u.region_code like %:keySearch%", nativeQuery=true)
-    Page<Area> cFindBySearch(@Param("keySearch") String keySearch, Pageable pageable);
+    @Query(nativeQuery = true,
+        value = "select *\n" +
+            "from area u\n" +
+            "where (:name is null or :name like '%' | u.area_name | '%')\n" +
+            "    and (:code is null or :code like '%' | u.area_code | '%')\n" +
+            "    and (:region is null or :code like '%' | u.region_code | '%')")
+    List<Area> cFindBySearch(@Param("name") String name,
+                             @Param("code") String code,
+                             @Param("region") String region);
 }

@@ -3,6 +3,7 @@ package com.itsol.service;
 import com.itsol.domain.Area;
 import com.itsol.repository.AreaRepository;
 import com.itsol.service.dto.AreaDTO;
+import com.itsol.service.dto.AreaSearchDTO;
 import com.itsol.service.mapper.AreaMapper;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
@@ -64,13 +65,12 @@ public class AreaService {
     }
 
     @Transactional(readOnly = true)
-    public List<AreaDTO> findBySearch(Integer pageNo, Integer pageSize, String sortField, String sortType, String keySearch) {
+    public List<AreaDTO> findBySearch(AreaSearchDTO dto) {
         log.debug("Request to get all Areas");
-        Sort sort = Sort.by(sortField);
-        sort = "ASC".equals(sortType) ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-        Page<Area> page = areaRepository.cFindBySearch(keySearch, pageable);
-        return page.getContent().stream().map(areaMapper::toDto).collect(Collectors.toList());
+        List<Area> areas = areaRepository.cFindBySearch(dto.getName(),
+            dto.getCode(),
+            dto.getRegion());
+        return areas.stream().map(areaMapper::toDto).collect(Collectors.toList());
     }
 
 

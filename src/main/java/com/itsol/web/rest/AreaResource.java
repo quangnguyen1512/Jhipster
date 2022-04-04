@@ -1,6 +1,7 @@
 package com.itsol.web.rest;
 
 import com.itsol.service.AreaService;
+import com.itsol.service.dto.AreaSearchDTO;
 import com.itsol.web.rest.errors.BadRequestAlertException;
 import com.itsol.service.dto.AreaDTO;
 
@@ -124,14 +125,10 @@ public class AreaResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 
-    @GetMapping("/areas/search")
-    public ResponseEntity<List<AreaDTO>> findBySearch(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                      @RequestParam(defaultValue = "20") Integer pageSize,
-                                                      @RequestParam(defaultValue = "id") String sortBy,
-                                                      @RequestParam(defaultValue = "ASC") String sortType,
-                                                      @RequestParam(defaultValue = "") String keySearch) {
+    @PostMapping("/areas/search")
+    public ResponseEntity<List<AreaDTO>> findBySearch(@RequestBody AreaSearchDTO dto) {
         log.debug("REST request to get a page of Areas");
-        List<AreaDTO> list = areaService.findBySearch(pageNo, pageSize, sortBy, sortType, keySearch);
+        List<AreaDTO> list = areaService.findBySearch(dto);
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
         }
     }
