@@ -126,9 +126,9 @@ public class AreaResource {
     }
 
     @PostMapping("/areas/search")
-    public ResponseEntity<List<AreaDTO>> findBySearch(@RequestBody AreaSearchDTO dto) {
+    public ResponseEntity<List<AreaDTO>> search(@RequestBody AreaSearchDTO dto) {
         log.debug("REST request to get a page of Areas");
-        List<AreaDTO> list = areaService.findBySearch(dto);
+        List<AreaDTO> list = areaService.search(dto);
         return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
         }
     }
