@@ -49,4 +49,15 @@ public class AreaMapper implements EntityMapper<AreaDTO, Area> {
     public List<AreaDTO> toDto(List<Area> entityList) {
         return entityList.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    public Object toDto(AreaDTO areaDTO) {
+        if (areaDTO == null) {
+            return null;
+        }
+
+        AreaDTO dto = new AreaDTO();
+        BeanUtils.copyProperties(areaDTO, dto);
+
+        return dto;
+    }
 }
