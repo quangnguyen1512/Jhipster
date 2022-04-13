@@ -18,9 +18,9 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     @Query(nativeQuery = true,
         value = "select *\n" +
             "from area u\n" +
-            "where (:name is null or :name like '%' | u.area_name | '%')\n" +
-            "    and (:code is null or :code like '%' | u.area_code | '%')\n" +
-            "    and (:region is null or :code like '%' | u.region_code | '%')")
+            "where (:name is null or UPPER(:name) like UPPER('%' | u.area_name | '%'))\n" +
+            "    and (:code is null or UPPER(:code) like UPPER('%' | u.area_code | '%'))\n" +
+            "    and (:region is null or UPPER(:region) like UPPER('%' | u.region_code | '%'))")
     List<Area> cFindBySearch(@Param("name") String name,
                              @Param("code") String code,
                              @Param("region") String region);
