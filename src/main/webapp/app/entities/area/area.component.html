@@ -31,8 +31,8 @@
                     <th scope="col"  jhiSortBy="status"><span jhiTranslate="gssgnApp.area.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="createdDate"><span jhiTranslate="gssgnApp.area.createdDate">Created Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="createdBy"><span jhiTranslate="gssgnApp.area.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updatedDate"><span jhiTranslate="gssgnApp.area.updatedDate">Updated Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updatedBy"><span jhiTranslate="gssgnApp.area.updatedBy">Updated By</span> <fa-icon icon="sort"></fa-icon></th>
+<!--                    <th scope="col"  jhiSortBy="updatedDate"><span jhiTranslate="gssgnApp.area.updatedDate">Updated Date</span> <fa-icon icon="sort"></fa-icon></th>-->
+<!--                    <th scope="col"  jhiSortBy="updatedBy"><span jhiTranslate="gssgnApp.area.updatedBy">Updated By</span> <fa-icon icon="sort"></fa-icon></th>-->
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -45,8 +45,8 @@
                     <td jhiTranslate="{{ 'gssgnApp.CommonStatus.' + area.status }}">{{ area.status }}</td>
                     <td>{{ area.createdDate | date:'medium' }}</td>
                     <td>{{ area.createdBy }}</td>
-                    <td>{{ area.updatedDate | date:'medium' }}</td>
-                    <td>{{ area.updatedBy }}</td>
+<!--                    <td>{{ area.updatedDate | date:'medium' }}</td>-->
+<!--                    <td>{{ area.updatedBy }}</td>-->
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

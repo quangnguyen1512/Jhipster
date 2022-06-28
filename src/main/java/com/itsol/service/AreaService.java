@@ -80,8 +80,17 @@ public class AreaService {
         CriteriaQuery<Area> cq = cb.createQuery(Area.class);
         Root<Area> root = cq.from(Area.class);
 
-        Predicate namePredicate = cb.like(root.get("areaName"), dto.getName());
-        Predicate codePredicate = cb.like(root.get("areaCode"), dto.getCode());
+        Predicate namePredicate = cb.or(
+            cb.isNull(root.get("areaName")),
+            cb.like(root.get("areaName"), dto.getName())
+        );
+//        Predicate namePredicate = cb.like(root.get("areaName"), dto.getName());
+
+        Predicate codePredicate = cb.or(
+          cb.isNull(root.get("areaCode")),
+          cb.like(root.get("areaCode"), dto.getCode())
+        );
+//        Predicate codePredicate = cb.like(root.get("areaCode"), dto.getCode());
         cq.where(cb.and(namePredicate, codePredicate));
 
         TypedQuery<Area> query = em.createQuery(cq);
